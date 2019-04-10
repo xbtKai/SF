@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+  </head>
+  <body onload="showUserWatch()">
+    <div id="d1"></div>
+    <a id="a1"></a>
+    <script>
+      function showUserWatch(){
+        var xhr = new XMLHttpRequest()
+        xhr.onreadystatechange= ()=>{
+          if(xhr.readyState==4 && xhr.status==200){
+            var result = xhr.responseText
+            var arr = JSON.parse(result)
+            console.log(arr[0])
+            var obj = arr[0]
+            d1.innerHTML=`<img src="./image/${obj.wid}.png">`
+            a1.innerHTML=obj.code
+          }
+        }
+        var url = "/mypro/showUserWatch"+window.location.search
+        xhr.open("get",url,true)
+
+        xhr.send(null)
+      }
+    </script>
+  </body>
+</html>

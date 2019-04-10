@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+  </head>
+  <body>
+    <br>
+    登陆: <br>
+    用户名: <br>
+    <input type="search" id="uname" maxlength="15"> <br>
+    密码:  <br>
+    <input type="search" id="upwd" maxlength="15"> <br>
+    <button onclick="login()">登陆</button>
+    <br>
+    <br>
+    <br>
+    <button onclick="changeRegPage()">还没有账号?注册一个!</button>
+    <script>
+      function login(){
+        var xhr = new XMLHttpRequest()
+
+        xhr.onreadystatechange= ()=>{
+          if(xhr.readyState==4 && xhr.status==200){
+            var result = xhr.responseText
+            if(result.search("登陆成功")==0){
+              alert("登陆成功")
+              window.location.href=`${window.location.origin}/user.html?uname=${result.slice(5)}`
+            }else{
+              alert("登陆失败,用户名或密码不匹配")
+            }
+          }
+        }
+
+        var url = "/mypro/login"
+        xhr.open("post",url,true)
+        
+        xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+
+        var formData = `${window.location.search}&uname=${uname.value}&upwd=${upwd.value}`
+        xhr.send(formData)
+      }
+    </script>
+  </body>
+</html>

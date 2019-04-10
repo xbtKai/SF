@@ -3,11 +3,19 @@ const express = require("express")
 var server = express()
 server.listen(9000)
 
+// 导入body-parser中间件
+const bodyParser = require("body-parser")
+
 // 导入mypro路由
 const myproRouter = require("./routes/mypro.js")
 
 // 使用中间间托管public文件夹
 server.use( express.static("public") )
+
+// 使用中间件挂在body-parser
+server.use( bodyParser.urlencoded({
+  extended:false
+}) )
 
 // 使用中间件挂在路由
 server.use("/mypro",myproRouter)
