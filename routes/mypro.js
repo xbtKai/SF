@@ -11,10 +11,7 @@ router.get("/showCode",(req,res)=>{
 
 // 第一页面显示图片
 router.get("/showImage",(req,res)=>{
-  console.log("这是showImage的req.query.wid:",req.query.wid)
-  if(req.query.wid == "M2-02"){
-    res.send("./image/M2-02.png")
-  }
+  res.send(req.query.wid)
 })
 
 

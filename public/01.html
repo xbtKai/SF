@@ -46,7 +46,7 @@
           if(xhr.readyState==4 && xhr.status==200){
             var result = xhr.responseText
             console.log("这是路由mypro/showImage显示的数据:"+result)
-            d1.innerHTML = `<img src="${result}">`
+            d1.innerHTML = `<img src="./image/${result}.png">`
           }
         }
         // 3.
