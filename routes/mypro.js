@@ -54,4 +54,29 @@ router.get("/showUserWatch",(req,res)=>{
   })
 })
 
+// 用户注册界面.reg.html转来
+router.post("/reg",(req,res)=>{
+  var uname = req.body.uname
+  var upwd = req.body.upwd
+  var wid = req.body.wid
+  var code = req.body.code
+  console.log(uname,upwd,wid,code)
+  
+  var sql = "select uname from sf_user where uname=?"
+  pool.query(sql,[uname],(err,result)=>{
+    if(err) throw err
+    if(result.length > 0){
+      res.send("0") // 返回0代表用户名已存在,注册失败
+    }else{
+      var sql1 = "insert into sf_user set uname=?,upwd=?,wid=?,code=?"
+      pool.query(sql1,[uname,upwd,wid,code],(err,result)=>{
+        if(err) throw err
+        if(result.affectedRows>0){
+          res.send("1")
+        }
+      })
+    }
+  })
+})
+
 module.exports=router

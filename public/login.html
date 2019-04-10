@@ -17,6 +17,7 @@
     <br>
     <button onclick="changeRegPage()">还没有账号?注册一个!</button>
     <script>
+      // 1.第一个函数 
       function login(){
         var xhr = new XMLHttpRequest()
 
@@ -39,6 +40,11 @@
 
         var formData = `${window.location.search}&uname=${uname.value}&upwd=${upwd.value}`
         xhr.send(formData)
+      }
+
+      // 2.第二个函数
+      function changeRegPage(){
+        window.location.href=`${window.location.origin}/reg.html${window.location.search}`
       }
     </script>
   </body>
