@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+      *{
+        margin:0;
+        padding:0;
+      }
+      .full{
+        width:100%;
+      }
+    </style>
+  </head>
+  <body onload="showCode(),showImage()">
+    <img class="full" src="./image/first.png">
+    <a id="a1"></a>
+    <div id="d1">
+    </div>
+    <script>
+      function showCode(){
+        console.log("这是路由mypro/Code显示的数据:"+window.location.search)
+        // 1.
+        var xhr = new XMLHttpRequest()
+        // 2.
+        xhr.onreadystatechange= ()=>{
+          if(xhr.readyState==4 && xhr.status==200){
+            var result = xhr.responseText
+            a1.innerHTML = result
+          }
+        }
+        // 3.
+        var url = "/mypro/showCode"+window.location.search
+        xhr.open("get",url,true)
+        // 4.
+        xhr.send(null)
+      }
+
+      function showImage(){
+        // 1.
+        var xhr = new XMLHttpRequest()
+        // 2.
+        xhr.onreadystatechange =()=>{
+          if(xhr.readyState==4 && xhr.status==200){
+            var result = xhr.responseText
+            console.log("这是路由mypro/showImage显示的数据:"+result)
+            d1.innerHTML = `<img src="${result}">`
+          }
+        }
+        // 3.
+        var url = "/mypro/showImage"+window.location.search
+        xhr.open("get",url,true)
+        // 4.
+        xhr.send(null)
+      }
+    </script>
+  </body>
+</html>
