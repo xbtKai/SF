@@ -135,7 +135,7 @@ router.get("/showCode",(req,res)=>{
           code2 += code.substr(i,3).replace("XHX","_")
         }
       }
-      console.log("解码后手表的型号为:"+code2)
+      console.log("解码后手表的编码为:"+code2)
       return code2
     }
     res.send(deCodeCode(code))

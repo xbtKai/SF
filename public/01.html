@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <script>
-      if(document.referrer.slice(0,21) != "http://127.0.0.1:9000"){
+      if(document.referrer.slice(0,27) != "http://www.sevenfridayz.com"){
         window.location.href="http://www.baidu.com"
       }
     </script>
@@ -26,6 +26,7 @@
     <div id="d1"></div>
     <button onclick="regLoginPage()">add watch</button>
     <script>
+      var ImgObj=new Image()
       // 1.........................................
       function showImage(){
         // 1.
@@ -38,8 +39,11 @@
 
             // 判断图片是否存在,则去百度吧
             function isHasImg(pathImg){
-              var ImgObj=new Image();
-              ImgObj.src= pathImg;
+              ImgObj.onload = function () {
+                console.log("img is loaded")
+              }; 
+              ImgObj.src= pathImg
+              console.log(ImgObj.fileSize)
               if(ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)){
                 return true;
               } else {
@@ -47,10 +51,11 @@
               }
             }
 
+            d1.innerHTML = `<img src="./image/${result.replace("_","-")}.png">`
+            aWid.innerHTML = result.replace("_","/")
+            aMoban.innerHTML = result.replace("_","/")+"  SF-"
             if(isHasImg(`./image/${result.replace("_","-")}.png`)){
-              d1.innerHTML = `<img src="./image/${result.replace("_","-")}.png">`
-              aWid.innerHTML = result.replace("_","/")
-              aMoban.innerHTML = result.replace("_","/")+"  SF-"
+              console.log("verygood")
             }else{
               window.location.href="http://www.baidu.com"
             }
