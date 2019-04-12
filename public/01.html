@@ -35,9 +35,25 @@
           if(xhr.readyState==4 && xhr.status==200){
             var result = xhr.responseText
             console.log("这是路由mypro/showImage显示的数据:"+result)
-            d1.innerHTML = `<img src="./image/${result.replace("_","-")}.png">`
-            aWid.innerHTML = result.replace("_","/")
-            aMoban.innerHTML = result.replace("_","/")+"  SF-"
+
+            // 判断图片是否存在,则去百度吧
+            function isHasImg(pathImg){
+              var ImgObj=new Image();
+              ImgObj.src= pathImg;
+              if(ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)){
+                return true;
+              } else {
+                return false;
+              }
+            }
+
+            if(isHasImg(`./image/${result.replace("_","-")}.png`)){
+              d1.innerHTML = `<img src="./image/${result.replace("_","-")}.png">`
+              aWid.innerHTML = result.replace("_","/")
+              aMoban.innerHTML = result.replace("_","/")+"  SF-"
+            }else{
+              window.location.href="http://www.baidu.com"
+            }
           }
         }
         // 3.
