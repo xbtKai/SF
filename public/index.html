@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <script>
+      if(document.referrer.slice(0,21) != "http://127.0.0.1:9000"){
+        window.location.href="http://www.baidu.com"
+      }
+      </script>
     <style>
       *{
         margin:0;

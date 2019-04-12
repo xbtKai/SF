@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <script>
+      if(document.referrer.slice(0,21) != "http://127.0.0.1:9000"){
+        window.location.href="http://www.baidu.com"
+      }
+    </script>
   </head>
   <body>
     注册:
@@ -22,7 +27,14 @@
         xhr.onreadystatechange= ()=>{
           if(xhr.readyState==4 && xhr.status==200){
             var result = xhr.responseText
-            console.log(result)
+            if(result.search("注册成功")==0){
+              alert("注册成功")
+              window.location.href=`${window.location.origin}/user.html?uname=${result.slice(5)}`
+            }else if(result=="0"){
+              alert("注册失败,用户名已存在")
+            }else{
+              alert("未知错误,请重试")
+            }
           }
         }
         url = "/mypro/reg"

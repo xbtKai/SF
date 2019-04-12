@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <script>
+      if(document.referrer.slice(0,21) != "http://127.0.0.1:9000"){
+        window.location.href="http://www.baidu.com"
+      }
+    </script>
     <style>
       *{
         margin:0;
@@ -13,31 +18,15 @@
       }
     </style>
   </head>
-  <body onload="showCode(),showImage()">
+  <body onload="showImage(),showCode()">
     <img class="full" src="./image/first.png">
-    <a id="a1"></a>
+    <a id="aMoban"></a>
+    <a id="aWid"></a>
+    <a id="aCode"></a>
     <div id="d1"></div>
     <button onclick="regLoginPage()">add watch</button>
     <script>
       // 1.........................................
-      function showCode(){
-        console.log("这是路由mypro/Code显示的数据:",window.location)
-        // 1.
-        var xhr = new XMLHttpRequest()
-        // 2.
-        xhr.onreadystatechange= ()=>{
-          if(xhr.readyState==4 && xhr.status==200){
-            var result = xhr.responseText
-            a1.innerHTML = result.replace("-","/")
-          }
-        }
-        // 3.
-        var url = "/mypro/showCode"+window.location.search
-        xhr.open("get",url,true)
-        // 4.
-        xhr.send(null)
-      }
-      // 2...................................................
       function showImage(){
         // 1.
         var xhr = new XMLHttpRequest()
@@ -46,7 +35,9 @@
           if(xhr.readyState==4 && xhr.status==200){
             var result = xhr.responseText
             console.log("这是路由mypro/showImage显示的数据:"+result)
-            d1.innerHTML = `<img src="./image/${result}.png">`
+            d1.innerHTML = `<img src="./image/${result.replace("_","-")}.png">`
+            aWid.innerHTML = result.replace("_","/")
+            aMoban.innerHTML = result.replace("_","/")+"  SF-"
           }
         }
         // 3.
@@ -55,9 +46,29 @@
         // 4.
         xhr.send(null)
       }
+      // 2...................................................
+      function showCode(){
+        // 1.
+        var xhr = new XMLHttpRequest()
+        // 2.
+        xhr.onreadystatechange= ()=>{
+          if(xhr.readyState==4 && xhr.status==200){
+            var result = xhr.responseText
+            console.log(result)
+            aCode.innerHTML += "-" + result.replace("_","/")
+          }
+        }
+        // 3.
+        var url = "/mypro/showCode"+window.location.search
+        xhr.open("get",url,true)
+        // 4.
+        xhr.send(null)
+      }
+
       // 3.......................................
       function regLoginPage(){
-        window.location.href=`${window.location.origin}/login.html${window.location.search}`
+        // http://127.0.0.1:9000/check.html?n=n&wid=M2-02&code=-A007
+        window.location.href=`${window.location.origin}/login.html?n=n&wid=${aWid.innerHTML.replace("/","-")}&code=${aCode.innerHTML.replace("-","")}`
       }
     </script>
   </body>
