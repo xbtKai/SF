@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <title>01Page</title>
-    <script>
+    <!-- <script>
       if(document.referrer.slice(0,27) != "http://www.sevenfridayz.com"){
         window.location.href="http://www.baidu.com"
       }
-    </script>
+    </script> -->
     <style>
       *{
         margin:0;
@@ -32,6 +32,7 @@
         top: 72%;
         left: 18%;
         font-size: 55px;
+        font-family: 'Courier New', Courier, monospace;
       }
 
       #aWid{
@@ -41,6 +42,34 @@
       #aCode{
         margin-left: -15px;
       }
+
+      #dButton{
+        position: absolute;
+        width: 24%;
+        height: 12%;
+        border-radius: 50%;
+        top: 84.7%;
+        left: 38%;
+        opacity:0;
+      }
+
+      #dButton:active{
+        position: absolute;
+        width: 24%;
+        height: 12%;
+        border-radius: 50%;
+        top: 84.7%;
+        left: 38%;
+        opacity: 0.5;
+      }
+
+      #dButton button{
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+      }
+
     </style>
   </head>
   <body onload="showImage(),showCode()">
@@ -48,14 +77,15 @@
     <div class="d1">
       <img class="img1" src="./image/01.gif">
       <div class="img2" id="d1"></div>
-        <div id="font">
-          <a id="aMoban"></a>
-          <a id="aWid"></a>
-          <a id="aCode"></a>
-        </div>
-        <div id="dButton">
-          <button>add watch</button>
-        </div>
+      <div id="font">
+        <a id="aMoban"></a>
+        <a id="aWid"></a>
+        <a id="aCode"></a>
+      </div>
+      <div class="buttomUp"></div>
+      <div id="dButton">
+        <button></button>
+      </div>
     </div>
 
     <script>
@@ -123,10 +153,10 @@
         console.log(d1.innerHTML)
         if(isHasImg(d1.innerHTML.slice(10,d1.innerHTML.length-2))){
           console.log("verygood")
-          window.document.getElementById("dButton").innerHTML = `<button id="b1" onclick="regLoginPage()">add watch</button>`
+          window.document.getElementById("dButton").innerHTML = `<button onclick="regLoginPage()"></button>`
         }else{
           // window.location.href="http://www.baidu.com"
-          window.document.getElementById("dButton").innerHTML = `<button id="b1" onclick="javascript:window.location.href='http://www.baidu.com'">add watch</button>`
+          window.document.getElementById("dButton").innerHTML = `<button onclick="javascript:window.location.href='http://www.baidu.com'">add watch</button>`
           console.log("验证图片不通过")
         }
       }, 3000);
