@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>01Page</title>
     <script>
       if(document.referrer.slice(0,27) != "http://www.sevenfridayz.com"){
         window.location.href="http://www.baidu.com"
@@ -13,18 +13,49 @@
         margin:0;
         padding:0;
       }
-      .full{
+      .d1{ position: relative; width: 1125px; height: 2310px; }
+      .img1{ display: block; width: 100%;}
+      .img2{
+        position: absolute;
+        top: 14%;
+        width: 90%;
+        margin-left: 6%;
+      }
+      .img2 img{
+        position: absolute;
         width:100%;
+      }
+
+      #font{
+        position: absolute;
+        color: white;
+        top: 72%;
+        left: 18%;
+        font-size: 55px;
+      }
+
+      #aWid{
+        margin-left: -10px;
+      }
+
+      #aCode{
+        margin-left: -15px;
       }
     </style>
   </head>
   <body onload="showImage(),showCode()">
-    <img class="full" src="./image/first.png">
-    <a id="aMoban"></a>
-    <a id="aWid"></a>
-    <a id="aCode"></a>
-    <div id="d1"></div>
-    <button id="b1">add watch</button>
+
+    <div class="d1">
+      <img class="img1" src="./image/01.gif">
+      <div class="img2" id="d1"></div>
+        <div id="font">
+          <a id="aMoban"></a>
+          <a id="aWid"></a>
+          <a id="aCode"></a>
+        </div>
+      <button id="b1">add watch</button>
+    </div>
+
     <script>
       // 1.........................................
       function showImage(){
@@ -38,7 +69,7 @@
             
             d1.innerHTML = `<img src="./image/${result.replace("_","-")}.png">`
             aWid.innerHTML = result.replace("_","/")
-            aMoban.innerHTML = result.replace("_","/")+"  SF-"
+            aMoban.innerHTML = result.replace("_","/")+"&nbsp;&nbsp;&nbsp;&nbsp;SF-"
 
           }
         }
@@ -69,7 +100,6 @@
 
       // 3.......................................
       function regLoginPage(){
-        // http://127.0.0.1:9000/check.html?n=n&wid=M2-02&code=-A007
         window.location.href=`${window.location.origin}/login.html?n=n&wid=${aWid.innerHTML.replace("/","-")}&code=${aCode.innerHTML.replace("-","")}`
       }
     </script>
