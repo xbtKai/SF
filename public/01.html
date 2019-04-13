@@ -24,9 +24,8 @@
     <a id="aWid"></a>
     <a id="aCode"></a>
     <div id="d1"></div>
-    <button onclick="regLoginPage()">add watch</button>
+    <button id="b1">add watch</button>
     <script>
-      var ImgObj=new Image()
       // 1.........................................
       function showImage(){
         // 1.
@@ -36,29 +35,11 @@
           if(xhr.readyState==4 && xhr.status==200){
             var result = xhr.responseText
             console.log("这是路由mypro/showImage显示的数据:"+result)
-
-            // 判断图片是否存在,则去百度吧
-            function isHasImg(pathImg){
-              ImgObj.onload = function () {
-                console.log("img is loaded")
-              }; 
-              ImgObj.src= pathImg
-              console.log(ImgObj.fileSize)
-              if(ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)){
-                return true;
-              } else {
-                return false;
-              }
-            }
-
+            
             d1.innerHTML = `<img src="./image/${result.replace("_","-")}.png">`
             aWid.innerHTML = result.replace("_","/")
             aMoban.innerHTML = result.replace("_","/")+"  SF-"
-            if(isHasImg(`./image/${result.replace("_","-")}.png`)){
-              console.log("verygood")
-            }else{
-              window.location.href="http://www.baidu.com"
-            }
+
           }
         }
         // 3.
@@ -91,6 +72,31 @@
         // http://127.0.0.1:9000/check.html?n=n&wid=M2-02&code=-A007
         window.location.href=`${window.location.origin}/login.html?n=n&wid=${aWid.innerHTML.replace("/","-")}&code=${aCode.innerHTML.replace("-","")}`
       }
+    </script>
+    <script>
+      // 判断图片是否存在,则去百度吧
+      setTimeout(() => {
+        function isHasImg(pathImg) {
+          var ImgObj=new Image()
+          ImgObj.src= pathImg
+          console.log(pathImg)
+          console.log(ImgObj.fileSize)
+          console.log(ImgObj.width,ImgObj.height)
+          if(ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)){
+            return true
+          } else {
+            return false
+          }
+        }
+
+        if(isHasImg(d1.innerHTML.slice(10,d1.innerHTML.length-2))){
+              console.log("verygood")
+              window.document.getElementById("b1").innerHTML = `<button id="b1" onclick="regLoginPage()">add watch</button>`
+            }else{
+              window.location.href="http://www.baidu.com"
+              console.log("验证图片不通过")
+        }
+      }, 3000);
     </script>
   </body>
 </html>
