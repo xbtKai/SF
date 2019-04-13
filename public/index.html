@@ -9,22 +9,72 @@
       }
       </script>
     <style>
-      *{
-        margin:0;
-        padding:0;
+      *{ margin: 0%; padding: 0%; }
+      .d1{ position: relative; width: 1125px; height: 2310px; }
+      .img1{ display: block; }
+      .img2{
+        opacity:0;
+        position: absolute;
+        top: 6%;
+        height: 31.5%;
+        width: 100% ;
       }
-      .full{
-        width:100%;
+      .img2:active{
+        position: absolute;
+        top: 6%;
+        height: 31.5%;
+        width: 100% ;
+        opacity:0.4;
       }
+
+      .img3{
+        opacity:0;
+        position: absolute;
+        top: 37.5%;
+        height: 31.5%;
+        width: 100% ;
+      }
+      .img3:active{
+        position: absolute;
+        top: 37.5%;
+        height: 31.5%;
+        width: 100% ;
+        opacity:0.4;
+      }
+
+      .img4{
+        opacity:0;
+        position: absolute;
+        top: 68.5%;
+        height: 31.5%;
+        width: 100% ;
+      }
+      .img4:active{
+        position: absolute;
+        top: 68.5%;
+        height: 31.5%;
+        width: 100% ;
+        opacity:0.4;
+      }      
+
     </style>
   </head>
-  <body onload="changePage()">
-    <img class="full" src="./image/check.png">
+  <body>
+    <div class="d1">
+      <img class="img1" src="./image/index.png">
+      <img class="img2" onclick="newSfeed()" src="image/showclear.png">
+      <img class="img3" onclick="regLogin()" src="image/showclear.png">
+      <img class="img4" onclick="to01Page()" src="image/showclear.png">
+    </div>
     <script>
-      function changePage(){
-        setTimeout(()=>{
-          window.location.href=`${window.location.origin}/01.html${window.location.search}`
-        },3000)
+      function newSfeed(){
+        window.location.href="http://www.sevenfriday.com"
+      }
+      function regLogin(){
+        window.location.href="https://www.sevenfriday.com/web.aspx?PageID=197"
+      }
+      function to01Page(){
+        window.location.href=`${window.location.origin}/01.html${window.location.search}`
       }
     </script>
   </body>
