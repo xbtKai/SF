@@ -53,7 +53,9 @@
           <a id="aWid"></a>
           <a id="aCode"></a>
         </div>
-      <button id="b1">add watch</button>
+        <div id="dButton">
+          <button>add watch</button>
+        </div>
     </div>
 
     <script>
@@ -118,13 +120,14 @@
             return false
           }
         }
-
+        console.log(d1.innerHTML)
         if(isHasImg(d1.innerHTML.slice(10,d1.innerHTML.length-2))){
-              console.log("verygood")
-              window.document.getElementById("b1").innerHTML = `<button id="b1" onclick="regLoginPage()">add watch</button>`
-            }else{
-              window.location.href="http://www.baidu.com"
-              console.log("验证图片不通过")
+          console.log("verygood")
+          window.document.getElementById("dButton").innerHTML = `<button id="b1" onclick="regLoginPage()">add watch</button>`
+        }else{
+          // window.location.href="http://www.baidu.com"
+          window.document.getElementById("dButton").innerHTML = `<button id="b1" onclick="javascript:window.location.href='http://www.baidu.com'">add watch</button>`
+          console.log("验证图片不通过")
         }
       }, 3000);
     </script>
