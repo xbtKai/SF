@@ -8,19 +8,97 @@
         window.location.href="http://www.baidu.com"
       }
       </script> -->
+    <style>
+      *{
+        margin: 0%;
+        padding: 0%;
+      }
+
+      .Container{
+        position: relative;
+        width: 1125px;
+        height: 2310px; 
+      }
+
+      .img1{
+        display: block;
+        width: 100%;
+      }
+
+      .img2{
+        position: absolute;
+        top: 44%;
+        width: 70%;
+        height: 4%;
+        margin-left: 9%;
+        opacity: 0.9;
+        font-size: 230%
+      }
+
+      .img3{
+        position: absolute;
+        top: 53%;
+        width: 70%;
+        height: 4%;
+        margin-left: 9%;
+        opacity: 0.9;
+        font-size: 230%
+      }
+
+      ::-webkit-input-placeholder {
+        color: gray;
+        opacity: 0.3;
+      }
+
+      .img4{
+        position: absolute;
+        top: 22%;
+        width: 55%;
+        height: 4%;
+        margin-left: 9%;
+        opacity: 0;
+      }
+
+      .img4:active{
+        position: absolute;
+        top: 22%;
+        width: 55%;
+        height: 4%;
+        margin-left: 9%;
+        opacity: 0.3;
+      }
+
+      .img5{
+        position: absolute;
+        top: 63%;
+        width: 23%;
+        height: 5.5%;
+        margin-left: 9%;
+        opacity: 0;
+      }
+
+      .img5:active{
+        position: absolute;
+        top: 63%;
+        width: 23%;
+        height: 5.5%;
+        margin-left: 9%;
+        opacity: 0.3;
+      }
+
+    </style>
   </head>
   <body>
-    <br>
-    登陆: <br>
-    用户名: <br>
-    <input type="search" id="uname" maxlength="15"> <br>
-    密码:  <br>
-    <input type="search" id="upwd" maxlength="15"> <br>
-    <button onclick="login()">登陆</button>
-    <br>
-    <br>
-    <br>
-    <button onclick="changeRegPage()">还没有账号?注册一个!</button>
+    <div class="Container">
+      <img src="./image/loginPage.PNG" class="img1">
+      <input type="search" id="uname" maxlength="15" placeholder="UserName" class="img2">
+      <br>
+      <br>
+      <br>
+      <input type="search" id="upwd" maxlength="15" placeholder="PassWord" class="img3">
+      <button onclick="changeRegPage()" class="img4"></button>
+      <button onclick="login()" class="img5"></button>
+    </div>
     <script>
       // 1.第一个函数 
       function login(){

@@ -32,7 +32,7 @@
         top: 72%;
         left: 18%;
         font-size: 55px;
-        font-family: 'Courier New', Courier, monospace;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
       }
 
       #aWid{
@@ -84,7 +84,7 @@
       </div>
       <div class="buttomUp"></div>
       <div id="dButton">
-        <button></button>
+        <button onclick="regLoginPage()"></button>
       </div>
     </div>
 
@@ -132,34 +132,8 @@
 
       // 3.......................................
       function regLoginPage(){
-        window.location.href=`${window.location.origin}/login.html?n=n&wid=${aWid.innerHTML.replace("/","-")}&code=${aCode.innerHTML.replace("-","")}`
+        window.location.href=`${window.location.origin}/login.html${window.location.search}`
       }
-    </script>
-    <script>
-      // 判断图片是否存在,则去百度吧
-      setTimeout(() => {
-        function isHasImg(pathImg) {
-          var ImgObj=new Image()
-          ImgObj.src= pathImg
-          console.log(pathImg)
-          console.log(ImgObj.fileSize)
-          console.log(ImgObj.width,ImgObj.height)
-          if(ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)){
-            return true
-          } else {
-            return false
-          }
-        }
-        console.log(d1.innerHTML)
-        if(isHasImg(d1.innerHTML.slice(10,d1.innerHTML.length-2))){
-          console.log("verygood")
-          window.document.getElementById("dButton").innerHTML = `<button onclick="regLoginPage()"></button>`
-        }else{
-          // window.location.href="http://www.baidu.com"
-          window.document.getElementById("dButton").innerHTML = `<button onclick="javascript:window.location.href='http://www.baidu.com'">add watch</button>`
-          console.log("验证图片不通过")
-        }
-      }, 3000);
     </script>
   </body>
 </html>

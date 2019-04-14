@@ -3,22 +3,23 @@ var router = express.Router()
 
 const pool = require("../pool.js")
 
-// 第一页面显示手表型号以及编码 wid,code
-router.get("/showCode",(req,res)=>{
-  console.log("这是/showCode的req.query:",req.query)
+// index 页面验证url ,非法输入url则不通过下一页面
+router.get("/indexCheckUrl",(req,res)=>{
+  console.log("这是路由indexCheckUrl的req.query",req.query)
   var widcode = req.query.widcode
+  // 如果url合法,则传回前端wid,code值,否则传回0
   if(widcode!=undefined 
-    && widcode.indexOf('CHENYUEHAN')!=-1
-    && (widcode.length-10)%3==0){
-
+  && widcode.indexOf('CHENYUEHAN')!=-1
+  && (widcode.length-10)%3==0){
     // 获取wid的最后一个下标,以便截取
-    // var widLastIndex = widcode.indexOf('CHENYUEHAN')
+    var widLastIndex = widcode.indexOf('CHENYUEHAN')
     // 获取code的第一个下标,以便截取
     var codeFirstIndex = widcode.indexOf('CHENYUEHAN')+10
 
-    // var wid = widcode.slice(0,widLastIndex)
+    var wid = widcode.slice(0,widLastIndex)
     var code = widcode.slice(codeFirstIndex)
-    // console.log(wid,code)
+    console.log(wid,code)
+
     // 手表code解码
     function deCodeCode(code){
       var code2=""
@@ -134,29 +135,13 @@ router.get("/showCode",(req,res)=>{
         if(code.substr(i,3)=="XHX"){
           code2 += code.substr(i,3).replace("XHX","_")
         }
+        if(code.substr(i,3)=="KON"){
+          code2 += code.substr(i,3).replace("KON"," ")
+        }
       }
       console.log("解码后手表的编码为:"+code2)
       return code2
     }
-    res.send(deCodeCode(code))
-  }else{
-    res.send("0")
-  }
-})
-
-// 第一页面显示图片
-router.get("/showImage",(req,res)=>{
-  console.log("这是/showImage的req.query:",req.query)
-  var widcode = req.query.widcode
-  if(widcode!=undefined 
-    && widcode.indexOf('CHENYUEHAN')!=-1
-    && (widcode.length-10)%3==0){
-
-    // 获取wid的最后一个下标,以便截取
-    var widLastIndex = widcode.indexOf('CHENYUEHAN')
-
-    var wid = widcode.slice(0,widLastIndex)
-    console.log(wid)
 
     // 手表型号解码
     function deCodeWid(wid){
@@ -273,16 +258,47 @@ router.get("/showImage",(req,res)=>{
         if(wid.substr(i,3)=="XHX"){
           wid2 += wid.substr(i,3).replace("XHX","_")
         }
+        if(wid.substr(i,3)=="KON"){
+          wid2 += wid.substr(i,3).replace("KON"," ")
+        }
 
       }
       console.log("解码后手表的型号为:"+wid2)
       return wid2
     }
-    res.send(deCodeWid(wid))
-
+    
+    var sql = "select * from sf_wid where wid=?"
+    pool.query(sql,[deCodeWid(wid)],(err,result)=>{
+      if(err)throw err
+      console.log("查看是否有对应手表型号:",result)
+      if(result.length>0){
+        res.send({"code":deCodeCode(code),"wid":deCodeWid(wid)})
+        return
+      }else{
+        res.send("0")
+        return
+      }
+    })
   }else{
-    res.send("0")
+    res.send("0") 
+    return
   }
+})
+
+
+
+// 第一页面显示手表编码 wid,code
+router.get("/showCode",(req,res)=>{
+  console.log("这是/showCode的req.query.code:",req.query.code)
+  var code = req.query.code
+  res.send(code)
+})
+
+// 第一页面显示图片
+router.get("/showImage",(req,res)=>{
+  console.log("这是/showImage的req.query.wid:",req.query.wid)
+  var wid = req.query.wid
+  res.send(wid)
 })
 
 
