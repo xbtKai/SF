@@ -2,17 +2,71 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>SevenFriday</title>
     <!-- <script>
       if(document.referrer.slice(0,27) != "http://www.sevenfridayz.com"){
         window.location.href="http://www.baidu.com"
       }
     </script> -->
+    <style>
+      *{
+        margin: 0%;
+        padding: 0%;
+      }
+
+      .Container{
+        position: relative;
+        width: 1125px;
+        height: 2310px;
+        text-align:center;
+      }
+
+      .img1{
+        display: block;
+        width: 100%;
+      }
+
+      .uname{
+        position: absolute;
+        top: 15%;
+        left: 49%;
+        font-size: 350%;
+        color: white;
+        opacity: 0.9;
+      }
+
+      .img2{
+        position: absolute;
+        top: 34%;
+        left: 15%;
+        opacity: 0.9;
+      }
+
+      .img3{
+        position: absolute;
+        top: 70%;
+        left: 32%;
+        font-size: 300%;
+        color: white;
+        opacity: 0.9;
+      }
+
+    </style>
   </head>
   <body onload="showUserWatch()">
-    <div id="d1"></div>
-    <a id="a1"></a>
+
+      <div class="Container">
+        <a id="uname" class="uname"></a>
+        <img src="./image/user.png" class="img1">
+        <div id="d1" class="img2"></div>
+        <a id="a1" class="img3"></a>
+      </div>
+
     <script>
+      console.log(decodeURI(window.location))
+      var urlStr = decodeURI(window.location)
+      var unameFirstIndex = urlStr.search("uname=")
+      uname.innerHTML = urlStr.slice(unameFirstIndex+6)
       function showUserWatch(){
         var xhr = new XMLHttpRequest()
         xhr.onreadystatechange= ()=>{
@@ -21,8 +75,8 @@
             var arr = JSON.parse(result)
             console.log(arr[0])
             var obj = arr[0]
-            d1.innerHTML=`<img src="./image/${obj.wid}.png">`
-            a1.innerHTML=obj.code
+            d1.innerHTML=`<img src="./image/${obj.wid.replace("_","-")}.png">`
+            a1.innerHTML=`SF-${obj.wid.replace("_","/")}-${obj.code}`
           }
         }
         var url = "/mypro/showUserWatch"+window.location.search

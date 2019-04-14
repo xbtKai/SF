@@ -2,25 +2,90 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>SevenFriday</title>
     <!-- <script>
       if(document.referrer.slice(0,27) != "http://www.sevenfridayz.com"){
         window.location.href="http://www.baidu.com"
       }
     </script> -->
+    <style>
+      *{
+        margin: 0%;
+        padding: 0%;
+      }
+
+      .Container{
+        position: relative;
+        width: 1125px;
+        height: 2310px; 
+      }
+
+      .img1{
+        display: block;
+        width: 100%;
+      }
+
+      .img2{
+        position: absolute;
+        top: 44%;
+        width: 70%;
+        height: 4%;
+        margin-left: 9%;
+        opacity: 0.9;
+        font-size: 230%
+      }
+
+      .img3{
+        position: absolute;
+        top: 53%;
+        width: 70%;
+        height: 4%;
+        margin-left: 9%;
+        opacity: 0.9;
+        font-size: 230%
+      }
+
+      ::-webkit-input-placeholder {
+        color: gray;
+        opacity: 0.3;
+      }
+
+      .img5{
+        position: absolute;
+        top: 63%;
+        width: 23%;
+        height: 5.5%;
+        margin-left: 9%;
+        opacity: 0;
+      }
+
+      .img5:active{
+        position: absolute;
+        top: 63%;
+        width: 23%;
+        height: 5.5%;
+        margin-left: 9%;
+        opacity: 0.3;
+      }
+    </style>
+
   </head>
   <body>
-    注册:
-    <br>
-    用户姓名:
-    <br>
-    <input type="search" id="uname">
-    <br>
-    用户密码:
-    <br>
-    <input type="search" id="upwd">
-    <br>
-    <button onclick="reg()">注册</button>
+
+
+
+    <div class="Container">
+      <img src="./image/regpage.png" class="img1">
+      <input type="search" id="uname" maxlength="15" placeholder="UserName" class="img2">
+      <br>
+      <br>
+      <br>
+      <input type="search" id="upwd" maxlength="15" placeholder="PassWord" class="img3">
+      <button onclick="reg()" class="img5"></button>
+    </div>
+
+
+
     <script>
       function reg(){
         var xhr = new XMLHttpRequest()
@@ -31,9 +96,9 @@
               alert("注册成功")
               window.location.href=`${window.location.origin}/user.html?uname=${result.slice(5)}`
             }else if(result=="0"){
-              alert("注册失败,用户名已存在")
+              alert("This name had be used!")
             }else{
-              alert("未知错误,请重试")
+              alert("Error!")
             }
           }
         }

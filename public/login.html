@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>SevenFriday</title>
     <!-- <script>
       if(document.referrer.slice(0,27) != "http://www.sevenfridayz.com"){
         window.location.href="http://www.baidu.com"
@@ -90,7 +90,7 @@
   </head>
   <body>
     <div class="Container">
-      <img src="./image/loginPage.PNG" class="img1">
+      <img src="./image/loginPage.png" class="img1">
       <input type="search" id="uname" maxlength="15" placeholder="UserName" class="img2">
       <br>
       <br>
@@ -108,10 +108,10 @@
           if(xhr.readyState==4 && xhr.status==200){
             var result = xhr.responseText
             if(result.search("登陆成功")==0){
-              alert("登陆成功")
+              alert("succeed!")
               window.location.href=`${window.location.origin}/user.html?uname=${result.slice(5)}`
             }else{
-              alert("登陆失败,用户名或密码不匹配")
+              alert("Error!")
             }
           }
         }
