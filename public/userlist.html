@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>SevenFriday</title>
+    <!-- <script>
+      if(document.referrer.slice(0,27) != "http://www.sevenfridayz.com"){
+        window.location.href="http://www.baidu.com"
+      }
+    </script> -->
+    <style>
+      *{
+        margin: 0%;
+        padding: 0%;
+      }
+
+      .Container{
+        position: relative;
+        width: 1125px;
+        height: 2310px;
+        text-align:center;
+      }
+
+      .img1{
+        display: block;
+        width: 100%;
+      }
+
+      .uname{
+        position: absolute;
+        top: 15%;
+        left: 49%;
+        font-size: 350%;
+        color: white;
+        opacity: 0.9;
+      }
+
+      /* .img2{
+        position: absolute;
+        top: 34%;
+        left: 15%;
+        opacity: 0.9;
+      } */
+
+      /* .img3{
+        position: absolute;
+        top: 70%;
+        left: 32%;
+        font-size: 300%;
+        color: white;
+        opacity: 0.9;
+      } */
+
+      .img4{
+        position: absolute;
+        top: 20%;
+        left: 5%;
+        width: 90%;
+        height: 80%;
+        
+      }
+
+    </style>
+  </head>
+  <body onload="showUserWatch()">
+      
+      这是您账户下,已绑定手表的列表:
+      <br>
+      <br>
+      <br>
+      您是否要添加您刚才扫描的手表?
+      <button onclick="addWatch()">添加刚才扫描的手表</button>
+      <br>
+    <div class="Container">
+      <a id="uname" class="uname"></a>
+      <img src="./image/userlist.jpg" class="img1">
+      <!-- <div id="d1" class="img2"></div> -->
+      <!-- <a id="a1" class="img3"></a> -->
+      <iframe src="watcheslist.html" class="img4" frameborder="0" scrolling="yes"></iframe>
+    </div>
+
+    <script>
+      function showUserWatch(){
+        var xhr = new XMLHttpRequest()
+        xhr.onreadystatechange= ()=>{
+          if(xhr.readyState==4 && xhr.status==200){
+            var result = xhr.responseText
+            var obj = JSON.parse(result)
+            uname.innerHTML=obj.uname
+            // console.log(obj)
+            // var arr = obj.result
+            // console.log(arr)
+            // var arrObj = arr[0]
+            // console.log(arrObj)
+            // if(arrObj.wid==null){
+            //   console.log("arrObj.wid is null")
+            //   a1.innerHTML=""
+            //   d1.innerHTML=""
+            // }else{
+            //   a1.innerHTML=`SF-${arrObj.wid.replace("_","/")}-${arrObj.code}`
+            //   d1.innerHTML=`<img src="./image/${arrObj.wid.replace("_","-")}.png">`
+            // }
+          }
+        }
+        var url = "/mypro/showUserWatch"+window.location.search
+        xhr.open("get",url,true)
+
+        xhr.send(null)
+      }
+    </script>
+    <script>
+      function addWatch(){
+        window.location.href=`${window.location.origin}/01.html${window.location.search}`
+      }
+    </script>
+  </body>
+</html>

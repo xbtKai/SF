@@ -92,9 +92,10 @@
         xhr.onreadystatechange= ()=>{
           if(xhr.readyState==4 && xhr.status==200){
             var result = xhr.responseText
-            if(result.search("注册成功")==0){
-              alert("注册成功")
-              window.location.href=`${window.location.origin}/user.html?uname=${result.slice(5)}`
+            var obj = JSON.parse(result)
+            if(obj.ifsucceed=="yes"){
+              alert("succeed")
+              window.location.href=`${window.location.origin}/userlist.html?uname=${obj.uname}&hadowner=${obj.hadowner}&wid=${obj.wid}&code=${obj.code}`
             }else if(result=="0"){
               alert("This name had be used!")
             }else{

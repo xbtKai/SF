@@ -109,7 +109,7 @@
             var result = xhr.responseText
             if(result.search("登陆成功")==0){
               alert("succeed!")
-              window.location.href=`${window.location.origin}/user.html?uname=${result.slice(5)}`
+              window.location.href=`${window.location.origin}/userlist.html${window.location.search}&uname=${result.slice(5)}`
             }else{
               alert("Error!")
             }

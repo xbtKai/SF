@@ -261,19 +261,30 @@ router.get("/indexCheckUrl",(req,res)=>{
         if(wid.substr(i,3)=="KON"){
           wid2 += wid.substr(i,3).replace("KON"," ")
         }
-
       }
       console.log("解码后手表的型号为:"+wid2)
       return wid2
     }
     
+
     var sql = "select * from sf_wid where wid=?"
     pool.query(sql,[deCodeWid(wid)],(err,result)=>{
       if(err)throw err
       console.log("查看是否有对应手表型号:",result)
       if(result.length>0){
-        res.send({"code":deCodeCode(code),"wid":deCodeWid(wid)})
-        return
+
+        var sql2 = "select * from sf_binding where wid=? and code=?"
+        pool.query(sql2,[deCodeWid(wid),deCodeCode(code)],(err,result)=>{
+          if(err) throw err
+          if(result.length>0){
+            res.send({"code":deCodeCode(code),"wid":deCodeWid(wid),"hadowner":"yes"})// 这里的yes代表此手表已经被绑定
+            return
+          }else{
+            res.send({"code":deCodeCode(code),"wid":deCodeWid(wid)})
+          }
+        })
+
+
       }else{
         res.send("0")
         return
@@ -302,24 +313,17 @@ router.get("/showImage",(req,res)=>{
 })
 
 
-// login页面 登陆并绑定手表
+// login页面 登陆
 router.post("/login",(req,res)=>{
   console.log(req.body)
   var uname = req.body.uname
   var upwd = req.body.upwd
-  var wid = req.body.wid
-  var code = req.body.code
 
   var sql = "select * from sf_user where uname=? and upwd=?"
 
   pool.query(sql,[uname,upwd],(err,result)=>{
     if(err) throw err
     if(result.length>0){
-      var sql1 = "update sf_user set wid=?,code=? where uname=?"
-      pool.query(sql1,[wid,code,uname],(err,result)=>{
-        if(err) throw err
-        console.log(result)
-      })
       res.send(`登陆成功,${uname}`)
     }else{
       res.send("登陆失败")
@@ -327,13 +331,18 @@ router.post("/login",(req,res)=>{
   })
 })
 
-// showUserWatch 用户完成登陆界面后,展示用户内对应的手表产品
+// showUserWatch
 router.get("/showUserWatch",(req,res)=>{
   var uname = req.query.uname
-  var sql = "select wid,code from sf_user where uname=?"
+  var hadowner = req.query.hadowner
+  var wid = req.query.wid
+  var code = req.query.code
+
+  console.log(uname)
+  var sql = "select wid,code from sf_binding where uname=?"
   pool.query(sql,[uname],(err,result)=>{
     if(err) throw err
-    res.send(result)
+    res.send({"result":result,"hadowner":hadowner,"uname":uname,"wid":wid,"code":code})
     console.log(result)
   })
 })
@@ -344,6 +353,7 @@ router.post("/reg",(req,res)=>{
   var upwd = req.body.upwd
   var wid = req.body.wid
   var code = req.body.code
+  var hadowner = req.body.hadowner
   console.log(uname,upwd,wid,code)
   
   var sql = "select uname from sf_user where uname=?"
@@ -352,13 +362,40 @@ router.post("/reg",(req,res)=>{
     if(result.length > 0){
       res.send("0") // 返回0代表用户名已存在,注册失败
     }else{
-      var sql1 = "insert into sf_user set uname=?,upwd=?,wid=?,code=?"
-      pool.query(sql1,[uname,upwd,wid,code],(err,result)=>{
+      var sql1 = "insert into sf_user set uname=?,upwd=?"
+      pool.query(sql1,[uname,upwd],(err,result)=>{
         if(err) throw err
         if(result.affectedRows>0){
-          res.send(`注册成功,${uname}`)
+          res.send({"ifsucceed":"yes","uname":uname,"hadowner":hadowner,"wid":wid,"code":code})
         }
       })
+    }
+  })
+})
+
+// afterAddWatch
+router.get("/afterAddWatch",(req,res)=>{
+  var uname = req.query.uname
+  var hadowner = req.query.hadowner
+  var wid = req.query.wid
+  var code = req.query.code
+
+  console.log(uname)
+  var sql1 = "select * from sf_binding where wid=? and code=?"
+  pool.query(sql1,[wid,code],(err,result)=>{
+    if(err) throw err
+    if(result.length<1){
+      var sql = "insert into sf_binding set uname=?,wid=?,code=?"
+      pool.query(sql,[uname,wid,code],(err,result)=>{
+        if(err) throw err
+        if(result.affectedRows>0){
+          res.send({"hadowner":hadowner,"uname":uname,"wid":wid,"code":code,"addWatch":"succeed"})
+        }else{
+          res.send({"addWatch":"error"})
+        }
+      })
+    }else{
+      res.send({"addWatch":"error"})
     }
   })
 })

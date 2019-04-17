@@ -71,6 +71,7 @@
     <script>
       var wid
       var code
+      var flag = false
       window.onload=()=>{
         var xhr = new XMLHttpRequest()
         xhr.onreadystatechange= ()=>{
@@ -83,6 +84,10 @@
             console.log(obj)
             wid = obj.wid
             code = obj.code
+            if(obj.hadowner=="yes"){
+              console.log(obj.hadowner)
+              flag = true
+            }
           }
         }
 
@@ -96,10 +101,20 @@
         window.location.href="http://www.sevenfriday.com"
       }
       function regLogin(){
-        window.location.href="https://www.sevenfriday.com/web.aspx?PageID=197"
+        if(flag){
+          window.location.href=`${window.location.origin}/login.html?n=n&wid=${wid}&code=${code}&hadowner=yes`
+        }else{
+          window.location.href=`${window.location.origin}/login.html?n=n&wid=${wid}&code=${code}`
+        }
       }
       function to01Page(){
-        window.location.href=`${window.location.origin}/01.html?n=n&wid=${wid}&code=${code}`
+        if(flag){
+          window.location.href=`${window.location.origin}/01.html?n=n&wid=${wid}&code=${code}&hadowner=yes`
+          console.log(wid,code,"1")
+        }else{
+          window.location.href=`${window.location.origin}/01.html?n=n&wid=${wid}&code=${code}`
+          console.log(wid,code,"2")
+        }
       }
     </script>
 

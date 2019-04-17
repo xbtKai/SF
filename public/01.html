@@ -107,6 +107,7 @@
         }
         // 3.
         var url = "/mypro/showImage"+window.location.search
+        console.log(url)
         xhr.open("get",url,true)
         // 4.
         xhr.send(null)
@@ -132,7 +133,14 @@
 
       // 3.......................................
       function regLoginPage(){
-        window.location.href=`${window.location.origin}/login.html${window.location.search}`
+        if((window.location.search.search("hadowner=yes"))>0){
+          window.location.href=`${window.location.origin}/fail.html`
+        }else if((window.location.search.search("uname="))<0){
+          alert("please login first!")
+          window.location.href=`${window.location.origin}/login.html${window.location.search}`
+        }else{
+          window.location.href=`${window.location.origin}/user.html${window.location.search}`
+        }
       }
     </script>
   </body>

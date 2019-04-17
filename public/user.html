@@ -61,29 +61,41 @@
         <div id="d1" class="img2"></div>
         <a id="a1" class="img3"></a>
       </div>
+      <button onclick="toUserList()">返回我的账户</button>
 
     <script>
-      console.log(decodeURI(window.location))
-      var urlStr = decodeURI(window.location)
-      var unameFirstIndex = urlStr.search("uname=")
-      uname.innerHTML = urlStr.slice(unameFirstIndex+6)
+      // console.log(decodeURI(window.location))
+      // var urlStr = decodeURI(window.location)
+      // var unameFirstIndex = urlStr.search("uname=")
+      // uname.innerHTML = urlStr.slice(unameFirstIndex+6)
       function showUserWatch(){
         var xhr = new XMLHttpRequest()
         xhr.onreadystatechange= ()=>{
           if(xhr.readyState==4 && xhr.status==200){
             var result = xhr.responseText
-            var arr = JSON.parse(result)
-            console.log(arr[0])
-            var obj = arr[0]
-            d1.innerHTML=`<img src="./image/${obj.wid.replace("_","-")}.png">`
-            a1.innerHTML=`SF-${obj.wid.replace("_","/")}-${obj.code}`
+            var obj = JSON.parse(result)
+            console.log(obj)
+            if(obj.addWatch=="error"){
+              window.location.href=`${window.location.origin}/fail.html`
+              console.log(obj.addWatch)
+            }else{
+              uname.innerHTML=obj.uname
+              a1.innerHTML=`SF-${obj.wid.replace("_","/")}-${obj.code}`
+              d1.innerHTML=`<img src="./image/${obj.wid.replace("_","-")}.png">`
+            }
           }
         }
-        var url = "/mypro/showUserWatch"+window.location.search
+
+        var url = "/mypro/afterAddWatch"+window.location.search
         xhr.open("get",url,true)
 
         xhr.send(null)
       }
+
+      function toUserList(){
+        window.location.href=`${window.location.origin}/userlist.html${window.location.search}`
+      }
+
     </script>
   </body>
 </html>

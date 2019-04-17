@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+      .d1{
+        color: white;
+        text-align: center;
+        font-size: 300%;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <div class="Container">
+        <!-- <img src="./image/userlist.jpg" class="img1"> -->
+        <div id="d1" class="d1"></div>
+        <!-- <div id="d2"></div> -->
+        
+    </div>
+
+    <script>
+      window.onload= ()=>{
+        var xhr = new XMLHttpRequest()
+        xhr.onreadystatechange= ()=>{
+          if(xhr.readyState==4 && xhr.status==200){
+            var result = xhr.responseText
+            var obj = JSON.parse(result)
+            console.log(obj)
+
+            var arr = obj.result
+            console.log("arr.length",arr.length)
+
+            d1.innerHTML=""
+            for(var i=0;i<arr.length;i++){
+              d1.innerHTML += `<img src="./image/${arr[i].wid.replace("_","-")}.png"><br>`
+              d1.innerHTML += `<a>SF-${arr[i].wid.replace("_","/")}-${arr[i].code}</a><br><br>`
+            }
+          }
+        }
+        var url = "/mypro/showUserWatch"+parent.window.location.search
+        console.log("这是watcheslist页面",parent.window.location.search)
+        xhr.open("get",url,true)
+
+        xhr.send(null)
+      }  
+    </script>
+  </body>
+</html>
