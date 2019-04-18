@@ -28,55 +28,50 @@
 
       .uname{
         position: absolute;
-        top: 15%;
-        left: 49%;
+        top: 11.7%;
+        left: 43%;
         font-size: 350%;
         color: white;
         opacity: 0.9;
       }
 
-      /* .img2{
-        position: absolute;
-        top: 34%;
-        left: 15%;
-        opacity: 0.9;
-      } */
-
-      /* .img3{
-        position: absolute;
-        top: 70%;
-        left: 32%;
-        font-size: 300%;
-        color: white;
-        opacity: 0.9;
-      } */
-
       .img4{
         position: absolute;
-        top: 20%;
-        left: 5%;
-        width: 90%;
-        height: 80%;
-        
+        top: 94%;
+        left: 41%;
       }
+
+      .img4 img:active{
+        opacity: 0.5;
+      }
+
+    .scroll-wrapper {   
+      -webkit-overflow-scrolling: touch;   
+      overflow-y: scroll;
+      position: absolute;
+      top: 30%;
+      left: 5%;
+      width: 90%;
+      height: 80%;
+      /* 提示: 请在此处加上需要设置的大小(dimensions)或位置(positioning)信息! */   
+    }   
+    .scroll-wrapper iframe {   
+      height: 65%;   
+      width: 100%;
+    } 
 
     </style>
   </head>
   <body onload="showUserWatch()">
-      
-      这是您账户下,已绑定手表的列表:
-      <br>
-      <br>
-      <br>
-      您是否要添加您刚才扫描的手表?
-      <button onclick="addWatch()">添加刚才扫描的手表</button>
-      <br>
     <div class="Container">
       <a id="uname" class="uname"></a>
       <img src="./image/userlist.jpg" class="img1">
-      <!-- <div id="d1" class="img2"></div> -->
-      <!-- <a id="a1" class="img3"></a> -->
-      <iframe src="watcheslist.html" class="img4" frameborder="0" scrolling="yes"></iframe>
+      <div class="scroll-wrapper">
+        <iframe src="watcheslist.html" frameborder="0" scrolling="yes"></iframe>
+      </div>
+      <button onclick="addWatch()" class="img4">
+        <img src="./image/yesbutton.png">
+      </button>
     </div>
 
     <script>
@@ -87,19 +82,6 @@
             var result = xhr.responseText
             var obj = JSON.parse(result)
             uname.innerHTML=obj.uname
-            // console.log(obj)
-            // var arr = obj.result
-            // console.log(arr)
-            // var arrObj = arr[0]
-            // console.log(arrObj)
-            // if(arrObj.wid==null){
-            //   console.log("arrObj.wid is null")
-            //   a1.innerHTML=""
-            //   d1.innerHTML=""
-            // }else{
-            //   a1.innerHTML=`SF-${arrObj.wid.replace("_","/")}-${arrObj.code}`
-            //   d1.innerHTML=`<img src="./image/${arrObj.wid.replace("_","-")}.png">`
-            // }
           }
         }
         var url = "/mypro/showUserWatch"+window.location.search
